@@ -1,0 +1,1 @@
+{"crons":[{"path":"/api/cron/price-check","schedule":"53 21 * * *"}]}
