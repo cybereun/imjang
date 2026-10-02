@@ -1,0 +1,10 @@
+{
+  "entry": "client/dist/index.html",
+  "managedCronJobs": [
+    "space-2-watch-price-check"
+  ],
+  "name": "부동산 임장 앱",
+  "platformVersion": 24,
+  "runtime": "typescript",
+  "slug": "space-2"
+}
