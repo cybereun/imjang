@@ -222,6 +222,7 @@ export function SourceDesk({ property, references }: { property: Property; refer
   return <div className="sources-page">
     <section className="source-intro"><div><p className="eyebrow">외부 참고자료</p><h2>가격·입지 근거 찾기</h2><p>주소 기준 검색 결과를 그대로 보여드립니다. 가격 숫자는 계약 조건과 시점을 원문에서 다시 확인하세요.</p></div><button className="primary-button" onClick={() => refresh.mutate()} disabled={refresh.isPending}><Icon name="refresh" />{refresh.isPending ? "찾는 중…" : "자료 새로 찾기"}</button></section>
     {refresh.data?.message && <p className="notice">{refresh.data.message}</p>}
+    {refresh.error && <p className="error-copy">자료를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>}
     {newest && <p className="fetched-time">최근 검색 {formatUpdated(newest)}</p>}
     {references.length === 0 && !refresh.isPending ? <div className="reference-empty"><Icon name="search" size={30} /><h3>아직 불러온 자료가 없습니다</h3><p>검색을 실행하면 실거래·시세와 주변 시설 관련 출처를 나눠 보여드립니다.</p></div> : <div className="reference-columns"><ReferenceColumn title="가격 자료" items={references.filter((item) => item.kind === "price")} /><ReferenceColumn title="입지 자료" items={references.filter((item) => item.kind === "location")} /></div>}
   </div>;
