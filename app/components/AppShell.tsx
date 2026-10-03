@@ -2,7 +2,7 @@
 // 앱 셸: 전역 상태·뷰 라우팅·설정 화면. 원본 App.tsx의 App/ServerKeyCard/SettingsView/VworldKeyCard/EmptyState.
 // 지도 컴포넌트(MapExplorer·CourseView)는 Leaflet의 window 의존성 때문에 next/dynamic(ssr: false)으로 로드한다.
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api-client";
 import {
@@ -38,20 +38,11 @@ export function App() {
   const [apiKey, setApiKey] = useState(readSavedApiKey);
   const [tab, setTab] = useState<Tab>("dashboard");
   const [lens, setLens] = useState<Lens>("invest");
-  const didInitialAutoSelect = useRef(false);
 
   useEffect(() => {
     if (!list.data) return;
-
-    if (!didInitialAutoSelect.current) {
-      didInitialAutoSelect.current = true;
-      const first = list.data.properties[0];
-      if (selectedId === null && first) setSelectedId(first.id);
-      return;
-    }
-
     if (selectedId !== null && !list.data.properties.some((item) => item.id === selectedId)) {
-      setSelectedId(list.data.properties[0]?.id ?? null);
+      setSelectedId(null);
     }
   }, [list.data, selectedId]);
 
@@ -161,7 +152,7 @@ export function App() {
 
           <main className={`detail-stage ${selectedId ? "mobile-visible" : ""}`}>
             {selectedId === null ? (
-              <div className="desktop-empty"><div className="pin-orbit"><Icon name="pin" size={34} /></div><h2>첫 임장지를 등록하세요</h2><p>주소를 좌표로 확인한 뒤 가격 판단과 현장 기록을 한곳에 모읍니다.</p><div className="empty-actions"><button className="secondary-button" onClick={() => setView("map")}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={openNewProperty}><Icon name="plus" /> 매물 등록</button></div></div>
+              <div className="desktop-empty"><div className="pin-orbit"><Icon name="pin" size={34} /></div><h2>{properties.length === 0 ? "첫 임장지를 등록하세요" : "매물을 선택하세요"}</h2><p>{properties.length === 0 ? "주소를 좌표로 확인한 뒤 가격 판단과 현장 기록을 한곳에 모읍니다." : "왼쪽 목록에서 매물을 누르면 현장 기록과 판단판이 여기에 표시됩니다."}</p><div className="empty-actions"><button className="secondary-button" onClick={() => setView("map")}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={openNewProperty}><Icon name="plus" /> 매물 등록</button></div></div>
             ) : detail.isPending ? (
               <div className="loading-screen"><span className="loading-mark" />매물 기록을 불러오는 중…</div>
             ) : detail.data?.property ? (
