@@ -18,6 +18,7 @@ import {
   type Property,
   type Tab,
 } from "./shared";
+import { WELCOME_IMAGE } from "./welcomeImage";
 import { ComparisonView } from "./CompareBoard";
 import { DecisionHub } from "./DecisionHub";
 import { PropertyWorkspace } from "./PropertyDetail";
@@ -473,10 +474,10 @@ export function VworldKeyCard() {
 }
 
 export function EmptyState({ onAdd }: { onAdd: () => void }) {
-  return <div className="empty-state"><img className="welcome-hero-media" src="/welcome-imjang.jpg" alt="아파트 임장 웰컴 일러스트" /><h2>현장 판단은 주소부터</h2><p>아직 등록된 매물이 없습니다. 첫 주소를 찾고 조사 노트를 시작해 보세요.</p><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 첫 매물 등록</button></div>;
+  return <div className="empty-state"><img className="welcome-hero-media" src={WELCOME_IMAGE} alt="아파트 임장 웰컴 일러스트" /><h2>현장 판단은 주소부터</h2><p>아직 등록된 매물이 없습니다. 첫 주소를 찾고 조사 노트를 시작해 보세요.</p><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 첫 매물 등록</button></div>;
 }
 
 export function WelcomeHero({ onAdd, onMap }: { onAdd: () => void; onMap: () => void }) {
-  return <div className="welcome-hero"><img className="welcome-hero-media" src="/welcome-imjang.jpg" alt="아파트 임장 웰컴 일러스트" /><div className="welcome-hero-actions"><button className="secondary-button" onClick={onMap}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 매물 등록</button></div></div>;
+  return <div className="welcome-hero"><img className="welcome-hero-media" src={WELCOME_IMAGE} alt="아파트 임장 웰컴 일러스트" /><div className="welcome-hero-actions"><button className="secondary-button" onClick={onMap}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 매물 등록</button></div></div>;
 }
 
