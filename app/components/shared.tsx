@@ -6,7 +6,8 @@ import type { ReactNode } from "react";
 import { api, type ApiResponse } from "@/lib/api-client";
 
 export function SafeAreaTopScrim({ backgroundColor }: { backgroundColor: string }) {
-  return <div style={{ height: "env(safe-area-inset-top)", backgroundColor }} aria-hidden="true" />;
+  // app-shell이 데스크톱에서 grid가 되므로, 스크림이 310px 첫 열을 차지하지 않도록 전 열을 차지하게 한다.
+  return <div style={{ height: "env(safe-area-inset-top)", backgroundColor, gridColumn: "1 / -1" }} aria-hidden="true" />;
 }
 
 export type Property = ApiResponse<typeof api, "listProperties">["properties"][number];
