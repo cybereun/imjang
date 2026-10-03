@@ -13,6 +13,7 @@
 
 ## Vercel 배포 방법
 
+
 ### 1. GitHub 연결
 1. Vercel 대시보드에서 "Add New Project" → 이 리포지토리(`cybereun/imjang`) 선택
 2. Branch는 **`vercel`** 선택 (main이 아님에 주의)
