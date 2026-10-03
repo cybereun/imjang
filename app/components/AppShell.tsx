@@ -152,7 +152,11 @@ export function App() {
 
           <main className={`detail-stage ${selectedId ? "mobile-visible" : ""}`}>
             {selectedId === null ? (
-              <div className="desktop-empty"><div className="pin-orbit"><Icon name="pin" size={34} /></div><h2>{properties.length === 0 ? "첫 임장지를 등록하세요" : "매물을 선택하세요"}</h2><p>{properties.length === 0 ? "주소를 좌표로 확인한 뒤 가격 판단과 현장 기록을 한곳에 모읍니다." : "왼쪽 목록에서 매물을 누르면 현장 기록과 판단판이 여기에 표시됩니다."}</p><div className="empty-actions"><button className="secondary-button" onClick={() => setView("map")}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={openNewProperty}><Icon name="plus" /> 매물 등록</button></div></div>
+              properties.length === 0 ? (
+                <div className="desktop-empty"><WelcomeHero onAdd={openNewProperty} onMap={() => setView("map")} /></div>
+              ) : (
+                <div className="desktop-empty"><div className="pin-orbit"><Icon name="pin" size={34} /></div><h2>매물을 선택하세요</h2><p>왼쪽 목록에서 매물을 누르면 현장 기록과 판단판이 여기에 표시됩니다.</p><div className="empty-actions"><button className="secondary-button" onClick={() => setView("map")}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={openNewProperty}><Icon name="plus" /> 매물 등록</button></div></div>
+              )
             ) : detail.isPending ? (
               <div className="loading-screen"><span className="loading-mark" />매물 기록을 불러오는 중…</div>
             ) : detail.data?.property ? (
@@ -469,6 +473,10 @@ export function VworldKeyCard() {
 }
 
 export function EmptyState({ onAdd }: { onAdd: () => void }) {
-  return <div className="empty-state"><div className="pin-orbit"><Icon name="pin" size={30} /></div><h2>현장 판단은 주소부터</h2><p>아직 등록된 매물이 없습니다. 첫 주소를 찾고 조사 노트를 시작해 보세요.</p><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 첫 매물 등록</button></div>;
+  return <div className="empty-state"><img className="welcome-hero-media" src="/welcome-imjang.jpg" alt="아파트 임장 웰컴 일러스트" /><h2>현장 판단은 주소부터</h2><p>아직 등록된 매물이 없습니다. 첫 주소를 찾고 조사 노트를 시작해 보세요.</p><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 첫 매물 등록</button></div>;
+}
+
+export function WelcomeHero({ onAdd, onMap }: { onAdd: () => void; onMap: () => void }) {
+  return <div className="welcome-hero"><img className="welcome-hero-media" src="/welcome-imjang.jpg" alt="아파트 임장 웰컴 일러스트" /><div className="welcome-hero-actions"><button className="secondary-button" onClick={onMap}><Icon name="pin" /> 지도에서 찾기</button><button className="primary-button" onClick={onAdd}><Icon name="plus" /> 매물 등록</button></div></div>;
 }
 
